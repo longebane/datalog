@@ -40,3 +40,37 @@
 .read-the-docs {
   color: #888;
 }
+
+table, th, td {
+  border: 1px black solid;
+}
+table {
+  width: 100%;
+  table-layout: fixed;
+}
+
+td {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  max-width: 1px;
+  cursor: pointer;
+  text-align: left;
+}
+
+.expanded-row td {
+  white-space: normal; /* Allow wrapping */
+  text-overflow: unset; /* Remove ellipsis */
+  overflow: visible; /* Show full content */
+  max-width: 100%; /* Allow content to use the full column width */
+  word-wrap: break-word; /* Break long words to fit within the column */
+  transition: all 0.3s ease; /* Smooth transition */
+}
+
+.expanded-content {
+
+}
+
+.expanded-content td {
+
+}
