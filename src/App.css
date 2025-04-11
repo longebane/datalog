@@ -1,3 +1,55 @@
+.table-container {
+  height: 500px;
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  width: 100%;
+  position: relative;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  position: relative;
+}
+
+.table-header-row {
+  border-bottom: 1px solid #ccc;
+}
+
+.table-header-cell {
+  padding: 8px;
+  border: 1px solid #ccc;
+  text-align: left;
+}
+
+.spacer-row {
+  height: 0;
+}
+
+.table-row {
+  cursor: pointer;
+}
+
+.table-row.collapsed {
+  background-color: #000;
+  color: #fff;
+}
+
+.table-row.expanded {
+  background-color: #444;
+  color: #fff;
+}
+
+.expanded-content {
+  padding: 8px;
+  background-color: #555;
+  color: #fff;
+  border: 1px solid #ccc;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  margin: 0;
+}
+
 table {
   width: 100%;
   table-layout: fixed;
