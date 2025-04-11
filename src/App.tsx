@@ -1,14 +1,13 @@
-import { useEffect, useState, useRef } from "react"
+import { useEffect, useState } from "react"
 import "./App.css"
 import { fetchData } from "./api"
 import { DataItem } from "./types"
-import { Row, SpacerRow } from "./components"
+import DataTable from "./components/DataTable"
 
 function App() {
   const [list, setList] = useState<DataItem[]>([])
   const [expandedRow, setExpandedRow] = useState<number | null>(null)
 
-  const containerRef = useRef<HTMLDivElement | null>(null)
   const rowHeight = 50
   const viewportHeight = 500
 
@@ -31,9 +30,10 @@ function App() {
   }, [])
 
   const handleScroll = () => {
-    if (!containerRef.current) return
+    const container = document.querySelector(".table-container")
+    if (!container) return
 
-    const { scrollTop } = containerRef.current
+    const { scrollTop } = container
     const newStartIndex = Math.floor(scrollTop / rowHeight)
     const newEndIndex = newStartIndex + Math.ceil(viewportHeight / rowHeight)
 
@@ -45,38 +45,19 @@ function App() {
     setExpandedRow((prev) => (prev === index ? null : index))
   }
 
-  const visibleRows = list.slice(startIndex, endIndex)
-
   return (
     <div>
       <div>Count: {list.length}</div>
-      <div
-        ref={containerRef}
-        className="table-container"
+      <DataTable
+        list={list}
+        expandedRow={expandedRow}
+        rowHeight={rowHeight}
+        viewportHeight={viewportHeight}
+        startIndex={startIndex}
+        endIndex={endIndex}
         onScroll={handleScroll}
-      >
-        <table className="table">
-          <thead>
-            <tr className="table-header-row">
-              <th className="table-header-cell">Time</th>
-              <th className="table-header-cell">Event</th>
-            </tr>
-          </thead>
-          <tbody>
-            <SpacerRow height={startIndex * rowHeight} />
-            {visibleRows.map((item, index) => (
-              <Row
-                key={startIndex + index}
-                item={item}
-                index={startIndex + index}
-                isExpanded={expandedRow === startIndex + index}
-                onExpand={handleRowExpand}
-              />
-            ))}
-            <SpacerRow height={(list.length - endIndex) * rowHeight} />
-          </tbody>
-        </table>
-      </div>
+        onRowExpand={handleRowExpand}
+      />
     </div>
   )
 }

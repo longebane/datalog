@@ -1,5 +1,5 @@
 import React from "react"
-import { DataItem } from "../types"
+import { DataItem } from "../../types"
 
 interface RowProps {
   item: DataItem
