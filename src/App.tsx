@@ -1,8 +1,8 @@
 import { useEffect, useState, useRef } from "react"
 import "./App.css"
-import ndjsonStream from "can-ndjson-stream"
-import { DataItem } from "./types" // Import DataItem type
-import Row from "./components/Row" // Import the Row component
+import { fetchData } from "./api"
+import { DataItem } from "./types"
+import { Row, SpacerRow } from "./components"
 
 function App() {
   const [list, setList] = useState<DataItem[]>([])
@@ -18,31 +18,16 @@ function App() {
   )
 
   useEffect(() => {
-    const fetchData = async () => {
+    const loadData = async () => {
       try {
-        const response = await fetch(
-          "https://s3.amazonaws.com/io.cribl.c021.takehome/cribl.log"
-        )
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`)
-        }
-
-        const reader = ndjsonStream(response.body).getReader()
-        const fetchedData: DataItem[] = []
-
-        while (true) {
-          const { done, value } = await reader.read()
-          if (done) break
-          fetchedData.push(value)
-        }
-
-        setList(fetchedData)
+        const data = await fetchData()
+        setList(data)
       } catch (error) {
-        console.error("Error fetching NDJSON data:", error)
+        console.error("Error fetching data:", error)
       }
     }
 
-    fetchData()
+    loadData()
   }, [])
 
   const handleScroll = () => {
@@ -78,10 +63,7 @@ function App() {
             </tr>
           </thead>
           <tbody>
-            <tr
-              className="spacer-row"
-              style={{ height: `${startIndex * rowHeight}px` }}
-            ></tr>
+            <SpacerRow height={startIndex * rowHeight} />
             {visibleRows.map((item, index) => (
               <Row
                 key={startIndex + index}
@@ -91,10 +73,7 @@ function App() {
                 onExpand={handleRowExpand}
               />
             ))}
-            <tr
-              className="spacer-row"
-              style={{ height: `${(list.length - endIndex) * rowHeight}px` }}
-            ></tr>
+            <SpacerRow height={(list.length - endIndex) * rowHeight} />
           </tbody>
         </table>
       </div>
