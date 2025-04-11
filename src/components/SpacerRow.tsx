@@ -1,4 +1,4 @@
-const SpacerRow = ({ height }: { height: number }) => {
+const SpacerRow = ({ height = 0 }: { height?: number }) => {
   return <tr className="spacer-row" style={{ height: `${height}px` }} />
 }
 

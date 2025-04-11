@@ -1,72 +1,82 @@
-.table-container {
-  height: 500px;
-  overflow-y: auto;
-  border: 1px solid #ccc;
+#root {
   width: 100%;
-  position: relative;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
 }
 
-.table {
+body {
+  background: white;
+  color: black;
+}
+
+.table-container {
+  height: 500px;
+  overflow: auto;
+  border: 1px solid #ccc;
   width: 100%;
-  border-collapse: collapse;
+  max-width: 100%;
+  overflow-x: hidden;
+  overflow-y: hidden;
   position: relative;
+  box-sizing: border-box;
 }
 
 .table-header-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   border-bottom: 1px solid #ccc;
+  font-weight: bold;
+  background-color: rgb(215, 236, 243);
 }
 
 .table-header-cell {
   padding: 8px;
-  border: 1px solid #ccc;
   text-align: left;
-}
-
-.spacer-row {
-  height: 0;
+  box-sizing: border-box;
 }
 
 .table-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   cursor: pointer;
+  align-items: center; // Corrected property name
+  border-bottom: 1px solid #ccc;
+  font-family: monospace;
+}
+
+.table-row.odd {
+  background-color: white;
+}
+
+.table-row.odd {
+  background-color: rgb(215, 236, 243);
 }
 
 .table-row.collapsed {
-  background-color: #000;
-  color: #fff;
 }
 
-.table-row.expanded {
-  background-color: #444;
-  color: #fff;
+.table-row.expanded pre {
+  color: rgb(201, 104, 104);
 }
 
-.expanded-content {
+.table-cell {
   padding: 8px;
-  background-color: #555;
-  color: #fff;
-  border: 1px solid #ccc;
-  white-space: pre-wrap;
-  word-wrap: break-word;
-  margin: 0;
-}
-
-table {
-  width: 100%;
-  table-layout: fixed;
-  border-collapse: collapse;
-}
-
-th,
-td {
-  border: 1px solid black;
-  text-align: left;
-  padding: 8px;
-}
-
-td {
+  border-right: 1px solid #ccc;
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
-  max-width: 1px;
-  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.table-expanded-row {
+  grid-column: 1 / -1;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  box-sizing: border-box;
+}
+
+.expanded-content {
+  margin: 0;
 }
