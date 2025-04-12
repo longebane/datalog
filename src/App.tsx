@@ -12,37 +12,43 @@ interface RowProps {
   onExpand: (index: number) => void
 }
 
-const Row = React.memo(({ item, index, isExpanded, onExpand }: RowProps) => {
-  const contentRef = useRef<HTMLDivElement | null>(null)
+export const Row = React.memo(
+  ({ item, index, isExpanded, onExpand }: RowProps) => {
+    const contentRef = useRef<HTMLDivElement | null>(null)
 
-  return (
-    <div
-      className={`table-row ${isExpanded ? "expanded" : "collapsed"} ${
-        index % 2 === 0 ? "even" : "odd"
-      }`}
-      onClick={() => onExpand(index)}
-    >
-      {!isExpanded ? (
-        <>
-          <div className="table-cell">{new Date(item._time).toISOString()}</div>
-          <div className="table-cell">{JSON.stringify(item)}</div>
-        </>
-      ) : (
-        <div ref={contentRef} className="table-expanded-row">
-          <div className="table-cell">{new Date(item._time).toISOString()}</div>
-          <div
-            className="table-cell"
-            onClick={(event) => event.stopPropagation()} // Prevent collapsing when interacting with the expanded content
-          >
-            <pre className="expanded-content">
-              {JSON.stringify(item, null, 2)}
-            </pre>
+    return (
+      <div
+        className={`table-row ${isExpanded ? "expanded" : "collapsed"} ${
+          index % 2 === 0 ? "even" : "odd"
+        }`}
+        onClick={() => onExpand(index)}
+      >
+        {!isExpanded ? (
+          <>
+            <div className="table-cell">
+              {new Date(item._time).toISOString()}
+            </div>
+            <div className="table-cell">{JSON.stringify(item)}</div>
+          </>
+        ) : (
+          <div ref={contentRef} className="table-expanded-row">
+            <div className="table-cell">
+              {new Date(item._time).toISOString()}
+            </div>
+            <div
+              className="table-cell"
+              onClick={(event) => event.stopPropagation()} // Prevent collapsing when interacting with the expanded content
+            >
+              <pre className="expanded-content">
+                {JSON.stringify(item, null, 2)}
+              </pre>
+            </div>
           </div>
-        </div>
-      )}
-    </div>
-  )
-})
+        )}
+      </div>
+    )
+  }
+)
 
 function App() {
   const [list, setList] = useState<DataItem[]>([])

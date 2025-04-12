@@ -12,6 +12,10 @@ export const fetchData = async (
     throw new Error(`HTTP error! status: ${response.status}`)
   }
 
+  if (!response.body) {
+    throw new Error("Response body is null")
+  }
+
   const reader = ndjsonStream(response.body).getReader()
   const batch: DataItem[] = []
 

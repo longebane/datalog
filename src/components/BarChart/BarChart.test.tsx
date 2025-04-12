@@ -2,15 +2,14 @@ import { render, waitFor } from "@testing-library/react"
 import "@testing-library/jest-dom"
 import { describe, it, expect } from "vitest"
 import BarChart from "./BarChart"
-import { DataItem } from "../../types"
 
 describe("BarChart Component", () => {
-  const mockData: DataItem[] = [
+  const mockData = [
     { _time: "2025-04-01T12:00:00Z", channel: "telemetry" },
     { _time: "2025-04-01T13:00:00Z", channel: "telemetry" },
     { _time: "2025-04-02T12:00:00Z", channel: "other" },
     { _time: "2025-04-02T14:00:00Z", channel: "telemetry" },
-  ]
+  ] as any
 
   it("renders the correct number of bars", () => {
     render(<BarChart data={mockData} />)
