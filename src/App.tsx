@@ -3,6 +3,7 @@ import "./App.css"
 import { fetchData } from "./api"
 import { DataItem } from "./types"
 import { Virtuoso } from "react-virtuoso"
+import BarChart from "./components/BarChart/BarChart"
 
 interface RowProps {
   item: DataItem
@@ -68,7 +69,7 @@ function App() {
       hasFetchedData.current = true
       loadData()
     }
-  }, []) // Empty dependency array ensures this runs only once
+  }, [])
 
   const handleRowExpand = (index: number): void => {
     setExpandedRow((prev) => (prev === index ? null : index))
@@ -76,8 +77,8 @@ function App() {
 
   return (
     <div>
-      {!isLoadingComplete && <div className="loader">Loading...</div>}
-      <div>Count: {list.length}</div>
+      <BarChart data={list} />
+
       {error ? (
         <div className="error-message">{error}</div>
       ) : (
@@ -112,6 +113,9 @@ function App() {
           />
         </div>
       )}
+
+      <div>Count: {list.length}</div>
+      {!isLoadingComplete && <div className="loader">Loading...</div>}
     </div>
   )
 }

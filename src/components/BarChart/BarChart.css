@@ -1,0 +1,7 @@
+.bar {
+  transition: fill 0.3s, height 0.3s;
+}
+
+.bar:hover {
+  fill: rgb(182, 216, 228);
+}

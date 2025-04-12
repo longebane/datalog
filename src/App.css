@@ -58,7 +58,15 @@ body {
 }
 
 .table-row.expanded pre {
-  color: rgb(201, 104, 104);
+  color: rgb(184, 0, 0);
+}
+
+.table-row:hover {
+  background-color: rgb(182, 216, 228); /* Hover color */
+}
+
+.table-row.expanded {
+  background-color: rgb(208, 232, 241); /* Selected color */
 }
 
 .table-cell {
