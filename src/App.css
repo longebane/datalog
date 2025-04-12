@@ -1,14 +1,5 @@
 #root {
   width: 100%;
-  overflow-x: hidden;
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
-}
-
-body {
-  background: white;
-  color: black;
 }
 
 .table-container {
@@ -41,7 +32,7 @@ body {
   display: grid;
   grid-template-columns: 1fr 1fr;
   cursor: pointer;
-  align-items: center; // Corrected property name
+  align-items: center;
   border-bottom: 1px solid #ccc;
   font-family: monospace;
 }
@@ -62,11 +53,11 @@ body {
 }
 
 .table-row:hover {
-  background-color: rgb(182, 216, 228); /* Hover color */
+  background-color: rgb(182, 216, 228);
 }
 
 .table-row.expanded {
-  background-color: rgb(208, 232, 241); /* Selected color */
+  background-color: rgb(208, 232, 241);
 }
 
 .table-cell {
